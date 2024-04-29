@@ -1,0 +1,54 @@
+.header {
+  padding: 8px 0px;
+  border-bottom: 1px #393e46 solid;
+}
+
+.header__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__logo {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.header__logo:hover {
+  transform: scale(1.2);
+}
+
+.header__logo__text {
+  font-family: "Open Sans";
+  font-weight: 600;
+  font-size: 16px;
+  color: #00adb5;
+}
+.header__nav {
+  display: flex;
+}
+
+.header__nav ul {
+  display: flex;
+  justify-content: space-between;
+  gap: 190px;
+}
+
+.header__nav li {
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-size: 16px;
+  color: #393e46;
+  cursor: pointer;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.header__nav li:hover {
+  opacity: 0.7;
+  transform: scale(1.2);
+}
