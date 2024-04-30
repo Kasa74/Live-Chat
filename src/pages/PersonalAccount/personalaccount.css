@@ -1,0 +1,9 @@
+.account {
+  margin-top: 10px;
+}
+
+.account__content {
+  width: 1004px;
+  height: 780px;
+  border: 0.5px solid #eeeeee;
+}
