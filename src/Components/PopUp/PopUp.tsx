@@ -13,18 +13,21 @@ const PopUp = () => {
 
   const [newMsg, setNewMsg] = useState<string | undefined>("");
 
-  // const myRef = useRef<any>(null);
+  const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   myRef.current.scrollIntoView({ behavior: "smooth" });
-  // }, [messages]);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages.length]);
 
   const sendMessage = () => {
     const new_arr = messages;
     new_arr.push({ role: "user", message: `${newMsg}` });
     setMessages(new_arr);
     setNewMsg("");
-    // setTimeout(myRef.current.scrollIntoView({ behavior: "smooth" }), 1000);
   };
   return (
     <div className="popup">
@@ -36,7 +39,6 @@ const PopUp = () => {
             <div className="operator__info__status">Онлайн</div>
           </div>
         </div>
-        {/* isActive? */}
         <div className={active ? "chat__active" : "chat"}>
           <div className="chat__container">
             <div className="scrollbar">
@@ -51,7 +53,6 @@ const PopUp = () => {
                 {messages.map((message, index) => (
                   <div
                     key={index}
-                    // ref={index === messages.length - 1 ? myRef : null}
                     className={
                       message.role === "user"
                         ? "chat__user__msg"
@@ -61,7 +62,7 @@ const PopUp = () => {
                     {message.message}
                   </div>
                 ))}
-                {/* <div ref={myRef} /> */}
+                <div ref={messagesEndRef} />
               </div>
             </div>
 
