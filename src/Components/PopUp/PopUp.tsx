@@ -21,10 +21,10 @@ const PopUp = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages.length]);
+  }, [messages]);
 
   const sendMessage = () => {
-    const new_arr = messages;
+    const new_arr = [...messages];
     new_arr.push({ role: "user", message: `${newMsg}` });
     setMessages(new_arr);
     setNewMsg("");
