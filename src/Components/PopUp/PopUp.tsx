@@ -1,15 +1,19 @@
-import { createRef, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LogoSVG } from "../../img/LogoSVG";
 
 // import send_button from "../../../public/img/send_button.png";
 import "./popup.css";
-import { IMsg } from "../../types";
 import SendButtonSVG from "../../img/SendButtonSVG";
+import { useDispatch, useSelector } from "react-redux";
 
 const PopUp = () => {
+  // redux store
+  // по userhex отправка запроса на бд и вывод сообщений
+  const dispatch = useDispatch();
+  const messages = useSelector((state: any) => state.messages);
+
   // развернуто или нет поп-ап окно
   const [active, setActive] = useState(false);
-  const [messages, setMessages] = useState<IMsg[]>([]);
 
   const [newMsg, setNewMsg] = useState<string | undefined>("");
 
@@ -24,9 +28,10 @@ const PopUp = () => {
   }, [messages]);
 
   const sendMessage = () => {
-    const new_arr = [...messages];
-    new_arr.push({ role: "user", message: `${newMsg}` });
-    setMessages(new_arr);
+    dispatch({
+      type: "ADD_MESSAGE",
+      payload: { message: newMsg, role: "user" },
+    });
     setNewMsg("");
   };
   return (
@@ -43,14 +48,7 @@ const PopUp = () => {
           <div className="chat__container">
             <div className="scrollbar">
               <div className="msg__block">
-                <div className="chat__operator__msg">
-                  Здравствуйте! Отдел продаж на связи. С радостью отвечу на Ваши
-                  вопросы.
-                </div>
-                <div className="chat__user__msg">
-                  Бот бесплатный? Как установить?
-                </div>
-                {messages.map((message, index) => (
+                {messages.map((message: any, index: number) => (
                   <div
                     key={index}
                     className={

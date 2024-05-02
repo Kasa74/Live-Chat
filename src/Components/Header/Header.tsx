@@ -13,6 +13,9 @@ const Header = ({ modalActive, setModalActive }: ModalProps) => {
             <div className="header__logo__text">Чат-бот</div>
           </Link>
           <nav className="header__nav">
+            <div className="nav__burger-menu">
+              <span className="nav__burger"></span>
+            </div>
             <ul>
               <li>Тарифы</li>
               <li>Заказать звонок</li>
