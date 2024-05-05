@@ -1,20 +1,25 @@
 import "./header.css";
-import { LogoSVG } from "../LogoSVG";
+import { LogoSVG } from "../../img/LogoSVG";
+import { ModalProps } from "../../types";
+import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ modalActive, setModalActive }: ModalProps) => {
   return (
     <header className="header">
       <div className="container">
         <div className="header__row">
-          <div className="header__logo">
+          <Link to="/" className="header__logo">
             <LogoSVG />
             <div className="header__logo__text">Чат-бот</div>
-          </div>
+          </Link>
           <nav className="header__nav">
+            <div className="nav__burger-menu">
+              <span className="nav__burger"></span>
+            </div>
             <ul>
               <li>Тарифы</li>
               <li>Заказать звонок</li>
-              <li>Личный кабинет</li>
+              <li onClick={() => setModalActive(true)}>Личный кабинет</li>
             </ul>
           </nav>
         </div>

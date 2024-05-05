@@ -1,10 +1,16 @@
-import MainPage from "./pages/MainPage/MainPage";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import Header from "./Components/Header/Header";
+import { routes } from "./routes";
 
 function App() {
   return (
-    <div>
-      <MainPage />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {routes.map(({ path, Component }) => (
+          <Route key={path} path={path} Component={Component} />
+        ))}
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -1,0 +1,26 @@
+const LupaSVG = () => {
+  return (
+    <svg
+      width="21"
+      height="21"
+      viewBox="0 0 21 21"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="7.97167"
+        cy="7.97167"
+        r="6.97167"
+        stroke="#00ADB5"
+        stroke-width="2"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M19.2929 20.707C19.6834 21.0975 20.3166 21.0975 20.7071 20.707C21.0976 20.3165 21.0976 19.6833 20.7071 19.2928L19.2929 20.707ZM12.2469 13.661L19.2929 20.707L20.7071 19.2928L13.6611 12.2468L12.2469 13.661Z"
+        fill="#00ADB5"
+      />
+    </svg>
+  );
+};
+
+export default LupaSVG;

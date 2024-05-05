@@ -41,9 +41,16 @@
 /* chat  */
 
 .chat {
+  height: 0;
+  transition: all 0.3s ease;
+}
+
+.chat__active {
   width: 100%;
   height: 524px;
   border: 1px solid #eeeeee;
+  transition: all 0.3s ease;
+  background-color: #fff;
 }
 
 .scrollbar {
@@ -82,6 +89,7 @@
   font-size: 14px;
   color: #000000;
   margin-bottom: 20px;
+  word-break: break-all;
 }
 
 .chat__user__msg {
@@ -95,6 +103,7 @@
   font-size: 14px;
   color: #fff;
   margin-bottom: 20px;
+  word-break: break-all;
 }
 
 /* send message */
@@ -106,4 +115,16 @@
   justify-content: space-between;
   height: 73px;
   padding: 0px 17px;
+}
+
+.input__msg {
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-size: 14;
+  color: #393e46;
+}
+
+.send__msg:active {
+  transition: all 0.3s ease;
+  transform: scale(0.8);
 }

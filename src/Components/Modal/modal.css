@@ -1,0 +1,225 @@
+.modal {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal__content {
+  background-color: #eeeeee;
+  position: relative;
+  transition: all 0.3s ease;
+  transform: scale(0.5);
+}
+
+.modal__content.active {
+  transform: scale(1);
+}
+
+.modal__logo {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.modal__logo:hover {
+  transform: scale(1.2);
+}
+
+.modal__close {
+  position: absolute;
+  right: 12px;
+  top: 17px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal__close:hover {
+  color: red;
+  filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg)
+    brightness(95%) contrast(80%);
+  transform: scale(1.2);
+}
+
+.modal__form {
+  margin: 94px;
+  padding: 24px 39px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  transform: scale(0.5);
+}
+
+.modal__form.active {
+  transform: scale(1);
+}
+
+.modal__title {
+  font-family: "Open Sans";
+  font-weight: 700;
+  font-size: 25px;
+  color: #393e46;
+}
+
+.change__form {
+  display: flex;
+  gap: 10px;
+  font-size: 15px;
+}
+
+.change__default__text {
+  font-family: "Open Sans";
+  font-weight: 400;
+
+  color: #b9b9b9;
+}
+
+.change__color__text {
+  position: relative;
+  font-family: "Open Sans";
+  font-weight: 400;
+  color: #00adb5;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.change__color__text:after {
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #00adb5;
+  content: "";
+  transition: all 0.3s ease-in-out;
+}
+
+.change__color__text:hover:after,
+.change__color__text:focus:after {
+  width: 100%;
+}
+
+.login__via__social {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.social {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.social:hover {
+  transform: scale(1.2);
+}
+
+.separation__block {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.separation__title {
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-size: 14px;
+  color: #b9b9b9;
+}
+
+.form__inputs {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form__input {
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-size: 15px;
+  color: #b9b9b9;
+  padding: 9px 9px;
+  border: 0.5px solid #b9b9b9;
+}
+
+.form__bottom {
+  margin-top: 37px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form__send {
+  font-family: "Open Sans";
+  font-weight: 600;
+  font-size: 19px;
+  color: #fff;
+  background-color: #393e46;
+  padding: 10px 19px;
+  transition: all 0.3s ease;
+}
+
+.form__send:hover {
+  background-color: #4c5158;
+}
+
+.forgot__password {
+  position: relative;
+  cursor: pointer;
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-size: 15px;
+  color: #b9b9b9;
+  transition: all 0.3s ease;
+}
+
+.forgot__password:after {
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #b9b9b9;
+  content: "";
+  transition: all 0.3s ease-in-out;
+}
+
+.forgot__password:hover:after,
+.forgot__password:focus:after {
+  width: 100%;
+}
+
+@media (max-width: 501px) {
+  .modal__logo {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+  }
+  .modal__form {
+    margin: 50px;
+    width: 235px;
+    height: 300px;
+    background-color: #fff;
+  }
+  .change__form {
+    flex-direction: column;
+    gap: 0px;
+    font-size: 13px;
+  }
+}
