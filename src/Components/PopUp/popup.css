@@ -12,6 +12,7 @@
   height: 83px;
   background-color: #eeeeee;
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -38,6 +39,12 @@
   color: #00adb5;
 }
 
+.popup__close__button {
+  position: absolute;
+  right: 17px;
+  top: 9px;
+  cursor: pointer;
+}
 /* chat  */
 
 .chat {

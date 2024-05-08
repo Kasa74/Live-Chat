@@ -17,7 +17,7 @@ const Header = ({ modalActive, setModalActive }: ModalProps) => {
               <span className="nav__burger"></span>
             </div>
             <ul>
-              <li>Тарифы</li>
+              <li>Установка</li>
               <li>Заказать звонок</li>
               <li onClick={() => setModalActive(true)}>Личный кабинет</li>
             </ul>
