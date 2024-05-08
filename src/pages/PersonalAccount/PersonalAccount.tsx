@@ -7,6 +7,7 @@ import LupaSVG from "../../img/LupaSVG";
 import { LogoSVG } from "../../img/LogoSVG";
 import SendButtonSVG from "../../img/SendButtonSVG";
 import { getDialogue, getOperatorDialogs, sendMessage } from "../../requsts";
+import MobileBackButtonSVG from "../../img/MobileBackButtonSVG";
 
 const PersonalAccount = () => {
   // redux store
@@ -97,7 +98,11 @@ const PersonalAccount = () => {
     <div className="account">
       <div className="container">
         <div className="account__content">
-          <div className="left__side">
+          <div
+            className={
+              activeDialogue.from_hex ? "left__side unactive" : "left__side"
+            }
+          >
             <div className="left__side__menu">
               <div className="left__side__menu__top">
                 <div className="burger-menu">
@@ -175,7 +180,11 @@ const PersonalAccount = () => {
               ))}
             </div>
           </div>
-          <div className="right__side">
+          <div
+            className={
+              activeDialogue.from_hex ? "right__side active" : "right__side"
+            }
+          >
             <div className="right__side__menu">
               <div className="category__messages active">Сообщения</div>
               <div className="category__report">Отчет</div>
@@ -184,6 +193,12 @@ const PersonalAccount = () => {
             <div className="chat__block">
               {activeDialogue.from_hex && (
                 <div className="user__info">
+                  <div
+                    className="mobile__back__button"
+                    onClick={() => setActiveDialogue({})}
+                  >
+                    <MobileBackButtonSVG />
+                  </div>
                   <div className="user__icon">
                     <UserIconSVG />
                   </div>

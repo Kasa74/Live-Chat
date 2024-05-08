@@ -304,6 +304,9 @@
   gap: 21px;
 }
 
+.mobile__back__button {
+  display: none;
+}
 .status {
   font-family: "Open Sans";
   font-weight: 400;
@@ -429,8 +432,10 @@
     display: none;
   }
   .right__side.active {
+    display: flex;
     position: absolute;
     width: 335px;
+    height: 100vh;
     border-radius: 0;
     box-shadow: none;
   }
@@ -439,10 +444,23 @@
   }
 
   .user__info {
+    position: relative;
     border-bottom: 1px solid #eeeeee;
     align-self: auto;
     justify-content: center;
     padding-bottom: 20px;
+  }
+
+  .mobile__back__button {
+    display: block;
+    position: absolute;
+    left: 15px;
+    top: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .mobile__back__button:active {
+    transform: scale(0.8);
   }
 
   .operator__msg__block {
