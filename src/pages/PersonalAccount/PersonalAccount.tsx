@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import UserIconSVG from "../../img/UserIconSVG";
 import "../../styles/general.css";
 import "./personalaccount.css";
@@ -6,33 +6,91 @@ import { useDispatch, useSelector } from "react-redux";
 import LupaSVG from "../../img/LupaSVG";
 import { LogoSVG } from "../../img/LogoSVG";
 import SendButtonSVG from "../../img/SendButtonSVG";
+import { getDialogue, getOperatorDialogs, sendMessage } from "../../requsts";
 
 const PersonalAccount = () => {
   // redux store
-  // const dispatch = useDispatch();
-  // const cash = useSelector((state: any) => state.cash);
-  // console.log(cash);
-  // const addCash = () => {
-  //   dispatch({ type: "ADD_CASH", payload: 5 });
-  // };
-  // addCash();
-  // console.log(cash);
-  //
   const dispatch = useDispatch();
   const messages = useSelector((state: any) => state.messages);
 
   const [activeCategory, setActiveCategory] = useState<number>(1);
 
-  const [activeDialogue, setActiveDialogue] = useState<number>(1);
+  const [dialogues, setDialogues] = useState<Array<object>>([]);
 
-  const [newMsg, setNewMsg] = useState<string | undefined>("");
+  // если object, то при следующем обновлении диалогов слетает активный стиль
+  const [activeDialogue, setActiveDialogue] = useState<any>({});
 
-  const sendMsg = () => {
-    dispatch({
-      type: "ADD_MESSAGE",
-      payload: { message: newMsg, role: "operator" },
+  const [newMsg, setNewMsg] = useState<string>("");
+
+  // поиск юзера по айди
+  const [searchDialogue, setSearchDialogue] = useState<string>("");
+
+  const filteredDialogues = dialogues.filter((dialogue: any) => {
+    return dialogue.from_hex
+      .toLowerCase()
+      .includes(searchDialogue.toLowerCase());
+  });
+
+  const messagesEndRef = useRef<null | HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // получить список диалогов оператора
+  useEffect(() => {
+    getOperatorDialogs().then((data) => {
+      setDialogues(data);
     });
-    setNewMsg("");
+
+    const subscribe = setInterval(() => {
+      getOperatorDialogs().then((data) => {
+        setDialogues(data);
+      });
+    }, 5000);
+
+    return () => {
+      clearInterval(subscribe);
+    };
+  }, []);
+
+  useEffect(() => {
+    getDialogue(activeDialogue.from_hex).then((data) => {
+      dispatch({
+        type: "RECEIVE_MESSAGES",
+        payload: data,
+      });
+    });
+  }, [activeDialogue, dialogues]);
+
+  // скролл до послденего сообщения при обновлении
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  // отправка сообщения с админки
+  const pressOnSendButton = (e: any) => {
+    if (newMsg !== "") {
+      dispatch({
+        type: "ADD_MESSAGE",
+        payload: { message: newMsg, from_hex: "123" },
+      });
+      sendMessage("123", activeDialogue.from_hex, newMsg);
+      setNewMsg("");
+    }
+  };
+
+  const handleKeyPress = (e: any) => {
+    if (e.keyCode === 13) {
+      if (newMsg !== "") {
+        dispatch({
+          type: "ADD_MESSAGE",
+          payload: { message: newMsg, from_hex: "123" },
+        });
+        sendMessage("123", activeDialogue.from_hex, newMsg);
+        setNewMsg("");
+      }
+    }
   };
 
   return (
@@ -45,7 +103,12 @@ const PersonalAccount = () => {
                 <div className="burger-menu">
                   <span className="burger"></span>
                 </div>
-                <input className="search__dialogue" placeholder="Поиск"></input>
+                <input
+                  className="search__dialogue"
+                  value={searchDialogue}
+                  placeholder="Поиск"
+                  onChange={(e) => setSearchDialogue(e.target.value)}
+                ></input>
               </div>
               <div className="left__side__menu__bottom">
                 {/* active or no active */}
@@ -58,7 +121,7 @@ const PersonalAccount = () => {
                   onClick={() => setActiveCategory(1)}
                 >
                   <p>Все</p>
-                  <span>120</span>
+                  <span>{dialogues.length}</span>
                 </div>
                 <div
                   className={
@@ -75,15 +138,41 @@ const PersonalAccount = () => {
             </div>
             <div className="dialogues">
               {/* active dialogues */}
-              <div className="dialogue" onClick={() => setActiveDialogue(1)}>
-                <div className="user__icon">
-                  <UserIconSVG />
+              {filteredDialogues.map((dialogue: any) => (
+                <div
+                  className={
+                    dialogue.from_hex === activeDialogue.from_hex
+                      ? "dialogue active"
+                      : "dialogue"
+                  }
+                  key={dialogue.from_hex}
+                  onClick={() => setActiveDialogue(dialogue)}
+                >
+                  <div className="user__icon">
+                    <UserIconSVG />
+                  </div>
+                  <div className="name__last__msg">
+                    <div
+                      className={
+                        dialogue.from_hex === activeDialogue.from_hex
+                          ? "username active"
+                          : "username"
+                      }
+                    >
+                      #{dialogue.from_hex}
+                    </div>
+                    <div
+                      className={
+                        dialogue.from_hex === activeDialogue.from_hex
+                          ? "last__msg active"
+                          : "last__msg"
+                      }
+                    >
+                      {dialogue.message}
+                    </div>
+                  </div>
                 </div>
-                <div className="name__last__msg">
-                  <div className="username">Петров Иван</div>
-                  <div className="last__msg">Мне вас советовал коллега</div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
           <div className="right__side">
@@ -93,19 +182,23 @@ const PersonalAccount = () => {
               <LupaSVG />
             </div>
             <div className="chat__block">
-              <div className="user__info">
-                <div className="user__icon">
-                  <UserIconSVG />
+              {/* если активный диалог пустой, то user_info не отображается */}
+
+              {!(JSON.stringify(activeDialogue) === "{}") && (
+                <div className="user__info">
+                  <div className="user__icon">
+                    <UserIconSVG />
+                  </div>
+                  <div className="name__with__status">
+                    <div className="username">#{activeDialogue.from_hex}</div>
+                    <div className="status">был(а) не давно</div>
+                  </div>
                 </div>
-                <div className="name__with__status">
-                  <div className="username">Зуев Михаил</div>
-                  <div className="status">был(а) не давно</div>
-                </div>
-              </div>
+              )}
               <div className="operator__msg__block">
                 {messages.map((message: any, index: number) => (
                   <>
-                    {message.role === "operator" ? (
+                    {message.from_hex === "123" ? (
                       <div className="operator__msg">
                         <div className="user__icon">
                           <LogoSVG />
@@ -121,11 +214,14 @@ const PersonalAccount = () => {
                           <UserIconSVG />
                         </div>
                         <div>
-                          <div className="username__msg">Зуев Михаил</div>
+                          <div className="username__msg">
+                            #{message.from_hex}
+                          </div>
                           <div className="msg">{message.message}</div>
                         </div>
                       </div>
                     )}
+                    <div ref={messagesEndRef} />
                   </>
                 ))}
               </div>
@@ -134,12 +230,13 @@ const PersonalAccount = () => {
                   value={newMsg}
                   className="operator__msg__input"
                   placeholder="Сообщение..."
+                  onKeyDown={(e) => handleKeyPress(e)}
                   onChange={(e) => setNewMsg(e.target.value)}
                 />
                 <button
                   disabled={newMsg === ""}
                   className="send__msg"
-                  onClick={() => sendMsg()}
+                  onClick={(e) => pressOnSendButton(e)}
                 >
                   <SendButtonSVG />
                 </button>
