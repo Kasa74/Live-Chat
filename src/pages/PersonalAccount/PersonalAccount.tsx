@@ -182,9 +182,7 @@ const PersonalAccount = () => {
               <LupaSVG />
             </div>
             <div className="chat__block">
-              {/* если активный диалог пустой, то user_info не отображается */}
-
-              {!(JSON.stringify(activeDialogue) === "{}") && (
+              {activeDialogue.from_hex && (
                 <div className="user__info">
                   <div className="user__icon">
                     <UserIconSVG />
