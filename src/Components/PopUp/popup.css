@@ -44,6 +44,13 @@
   right: 17px;
   top: 9px;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.popup__close__button:hover {
+  transform: scale(1.2);
+  filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg)
+    brightness(95%) contrast(80%);
 }
 /* chat  */
 

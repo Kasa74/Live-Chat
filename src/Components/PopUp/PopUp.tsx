@@ -136,9 +136,11 @@ const PopUp = () => {
             <div className="operator__info__name">Консультант</div>
             <div className="operator__info__status">Онлайн</div>
           </div>
-          <div className="popup__close__button">
-            <CloseButton />
-          </div>
+          {active && (
+            <div className="popup__close__button">
+              <CloseButton />
+            </div>
+          )}
         </div>
         <div className={active ? "chat__active" : "chat"}>
           <div className="chat__container">

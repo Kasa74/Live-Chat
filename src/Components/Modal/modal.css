@@ -152,9 +152,21 @@
   font-family: "Open Sans";
   font-weight: 400;
   font-size: 15px;
-  color: #b9b9b9;
+  color: #000000;
   padding: 9px 9px;
   border: 0.5px solid #b9b9b9;
+}
+
+.form__input::placeholder {
+  color: #b9b9b9;
+}
+
+.error {
+  padding-top: 10px;
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-size: 15px;
+  color: red;
 }
 
 .form__bottom {
