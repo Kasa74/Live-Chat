@@ -55,7 +55,7 @@ export const getOperatorDialogs = async () => {
   return data;
 };
 
-export const login = async (email: any, password: any) => {
+export const login = async (email: string, password: string) => {
   const data = await fetch("http://localhost:5001/api/user/login", {
     method: "POST",
     headers: {
