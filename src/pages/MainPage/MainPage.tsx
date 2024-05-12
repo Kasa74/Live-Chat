@@ -1,23 +1,25 @@
-import { useState } from "react";
-import Header from "../../Components/Header/Header";
-import Modal from "../../Components/Modal/Modal";
-import PopUp from "../../Components/PopUp/PopUp";
 import "./mainpage.css";
+import "../../styles/general.css";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
-  const [modalActive, setModalActive] = useState(false);
+  const navigate = useNavigate();
   return (
     <div className="MainPage">
-      <Header modalActive={modalActive} setModalActive={setModalActive} />
-      <main className="main__content">
-        <div className="main__title">Чат-бот нового поколения</div>
-        <div className="main__text">
-          Платформа для связи <br />с клиентами
-        </div>
-        <div className="main__button">Установить</div>
-      </main>
-      <PopUp />
-      <Modal modalActive={modalActive} setModalActive={setModalActive} />
+      <div className="container">
+        <main className="main__content">
+          <div className="main__title">Чат-бот нового поколения</div>
+          <div className="main__text">
+            Платформа для связи <br />с клиентами
+          </div>
+          <div
+            className="main__button"
+            onClick={() => navigate("/installation")}
+          >
+            Установить
+          </div>
+        </main>
+      </div>
     </div>
   );
 };

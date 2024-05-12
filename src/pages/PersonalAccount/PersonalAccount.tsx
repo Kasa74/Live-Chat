@@ -8,6 +8,7 @@ import { LogoSVG } from "../../img/LogoSVG";
 import SendButtonSVG from "../../img/SendButtonSVG";
 import { getDialogue, getOperatorDialogs, sendMessage } from "../../requsts";
 import MobileBackButtonSVG from "../../img/MobileBackButtonSVG";
+import { error } from "console";
 
 const PersonalAccount = () => {
   // redux store
@@ -40,14 +41,22 @@ const PersonalAccount = () => {
 
   // получить список диалогов оператора
   useEffect(() => {
-    getOperatorDialogs().then((data) => {
-      setDialogues(data);
-    });
+    getOperatorDialogs()
+      .then((data) => {
+        setDialogues(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
     const subscribe = setInterval(() => {
-      getOperatorDialogs().then((data) => {
-        setDialogues(data);
-      });
+      getOperatorDialogs()
+        .then((data) => {
+          setDialogues(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }, 5000);
 
     return () => {
@@ -56,12 +65,16 @@ const PersonalAccount = () => {
   }, []);
 
   useEffect(() => {
-    getDialogue(activeDialogue.from_hex).then((data) => {
-      dispatch({
-        type: "RECEIVE_MESSAGES",
-        payload: data,
+    getDialogue(activeDialogue.from_hex)
+      .then((data) => {
+        dispatch({
+          type: "RECEIVE_MESSAGES",
+          payload: data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
       });
-    });
   }, [activeDialogue, dialogues]);
 
   // скролл до послденего сообщения при обновлении
@@ -76,7 +89,9 @@ const PersonalAccount = () => {
         type: "ADD_MESSAGE",
         payload: { message: newMsg, from_hex: "123" },
       });
-      sendMessage("123", activeDialogue.from_hex, newMsg);
+      sendMessage("123", activeDialogue.from_hex, newMsg).catch((error) => {
+        console.error(error);
+      });
       setNewMsg("");
     }
   };
@@ -88,7 +103,9 @@ const PersonalAccount = () => {
           type: "ADD_MESSAGE",
           payload: { message: newMsg, from_hex: "123" },
         });
-        sendMessage("123", activeDialogue.from_hex, newMsg);
+        sendMessage("123", activeDialogue.from_hex, newMsg).catch((error) => {
+          console.error(error);
+        });
         setNewMsg("");
       }
     }
