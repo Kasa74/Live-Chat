@@ -9,7 +9,6 @@ import { ModalProps } from "../../types";
 import "./modal.css";
 import { useState } from "react";
 import { login } from "../../requsts";
-import { error } from "console";
 
 const Modal = ({ modalActive, setModalActive }: ModalProps) => {
   const [email, setEmail] = useState("");
