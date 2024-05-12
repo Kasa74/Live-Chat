@@ -32,10 +32,12 @@
   border: 2px solid #00adb5;
   padding: 10px 66px;
   transition: all 0.3s ease;
+  user-select: none;
 }
 
 .main__button:hover {
   background-color: #00adb5;
+  color: #fff;
 }
 
 .main__button:active {

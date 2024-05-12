@@ -1,11 +1,10 @@
 .account {
-  margin-top: 10px;
   background-color: #fff;
 }
 
 .account__content {
   width: 1004px;
-  height: 98.9vh;
+  height: 100vh;
   border: 0.5px solid #eeeeee;
   display: flex;
   overflow: hidden;

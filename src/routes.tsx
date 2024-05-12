@@ -1,14 +1,24 @@
-import { Component } from "react";
 import MainPage from "./pages/MainPage/MainPage";
 import PersonalAccount from "./pages/PersonalAccount/PersonalAccount";
+import { InstallationPage } from "./pages/InstallationPage/InstallationPage";
 
-export const routes = [
+export const publicRoutes = [
   {
     path: "/",
-    Component: MainPage,
+    element: <MainPage />,
   },
   {
+    path: "/installation",
+    element: <InstallationPage />,
+  },
+  {
+    path: "*",
+    element: <MainPage />,
+  },
+];
+export const authRoutes = [
+  {
     path: "/account",
-    Component: PersonalAccount,
+    element: <PersonalAccount />,
   },
 ];

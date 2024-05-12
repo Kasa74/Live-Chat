@@ -9,6 +9,7 @@ import { ModalProps } from "../../types";
 import "./modal.css";
 import { useState } from "react";
 import { login } from "../../requsts";
+import { error } from "console";
 
 const Modal = ({ modalActive, setModalActive }: ModalProps) => {
   const [email, setEmail] = useState("");
@@ -17,17 +18,32 @@ const Modal = ({ modalActive, setModalActive }: ModalProps) => {
   const navigate = useNavigate();
   const sendInfo = async (e: any) => {
     e.preventDefault();
-
-    const response = await login(email, password);
-    console.log(response.status);
-    if (response.status >= 200 && response.status < 300) {
-      const data = await response.json();
-      console.log(data);
-      localStorage.setItem("token", data.token);
-      navigate("/account");
-    } else if (response.status === 404) {
-      setSendFormError("Неверный пароль или почта!");
+    try {
+      const response = await login(email, password);
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("token", data.token);
+        navigate("/account");
+      } else {
+        if (response.status === 404)
+          setSendFormError("Неверный пароль или почта!");
+        if (response.status === 500) throw new Error("500, сервер даун");
+        throw new Error(String(response.status));
+      }
+    } catch (error) {
+      console.error(error);
     }
+
+    // const response = await login(email, password);
+    // console.log(response.status);
+    // if (response.status >= 200 && response.status < 300) {
+    //   const data = await response.json();
+    //   console.log(data);
+    //   localStorage.setItem("token", data.token);
+    //   navigate("/account");
+    // } else if (response.status === 404) {
+    //   setSendFormError("Неверный пароль или почта!");
+    // }
 
     // if (data.message) {
     //   alert("неверный пароль или почта!");

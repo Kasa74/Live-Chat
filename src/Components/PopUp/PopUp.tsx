@@ -43,20 +43,28 @@ const PopUp = () => {
 
   useEffect(() => {
     // подгружаем предыдущий диалог, если он есть
-    getDialogue(userID).then((data) => {
-      dispatch({
-        type: "RECEIVE_MESSAGES",
-        payload: data,
-      });
-    });
-
-    const subscribe = setInterval(() => {
-      getDialogue(userID).then((data) => {
+    getDialogue(userID)
+      .then((data) => {
         dispatch({
           type: "RECEIVE_MESSAGES",
           payload: data,
         });
+      })
+      .catch((error) => {
+        console.error(error);
       });
+
+    const subscribe = setInterval(() => {
+      getDialogue(userID)
+        .then((data) => {
+          dispatch({
+            type: "RECEIVE_MESSAGES",
+            payload: data,
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }, 5000);
     // subscribe();
     return () => {
@@ -105,7 +113,9 @@ const PopUp = () => {
         type: "ADD_MESSAGE",
         payload: { message: newMsg, from_hex: userID },
       });
-      sendMessage(userID, "123", newMsg);
+      sendMessage(userID, "123", newMsg).catch((error) => {
+        console.error(error);
+      });
       setNewMsg("");
     }
 
@@ -122,7 +132,9 @@ const PopUp = () => {
           type: "ADD_MESSAGE",
           payload: { message: newMsg, from_hex: userID },
         });
-        sendMessage(userID, "123", newMsg);
+        sendMessage(userID, "123", newMsg).catch((error) => {
+          console.error(error);
+        });
         setNewMsg("");
       }
     }

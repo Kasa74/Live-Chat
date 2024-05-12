@@ -89,6 +89,7 @@
 }
 
 .change__color__text {
+  display: inline-flex;
   position: relative;
   font-family: "Open Sans";
   font-weight: 400;

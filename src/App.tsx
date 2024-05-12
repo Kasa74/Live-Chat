@@ -1,14 +1,19 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Header from "./Components/Header/Header";
-import { routes } from "./routes";
+import { publicRoutes, authRoutes } from "./routes";
+import { PublicLayout } from "./Components/PublicLayout";
+import PersonalAccount from "./pages/PersonalAccount/PersonalAccount";
 
 function App() {
+  let isAuth = localStorage.getItem("token");
   return (
     <BrowserRouter>
       <Routes>
-        {routes.map(({ path, Component }) => (
-          <Route key={path} path={path} Component={Component} />
-        ))}
+        <Route element={<PublicLayout />}>
+          {publicRoutes.map(({ path, element }) => (
+            <Route path={path} element={element} />
+          ))}
+        </Route>
+        {isAuth && <Route path="/account" element={<PersonalAccount />} />}
       </Routes>
     </BrowserRouter>
   );
