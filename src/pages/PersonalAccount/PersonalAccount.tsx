@@ -8,7 +8,6 @@ import { LogoSVG } from "../../img/LogoSVG";
 import SendButtonSVG from "../../img/SendButtonSVG";
 import { getDialogue, getOperatorDialogs, sendMessage } from "../../requsts";
 import MobileBackButtonSVG from "../../img/MobileBackButtonSVG";
-import { error } from "console";
 
 const PersonalAccount = () => {
   // redux store

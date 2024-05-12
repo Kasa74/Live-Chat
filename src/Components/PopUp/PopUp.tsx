@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { LogoSVG } from "../../img/LogoSVG";
-
-// import send_button from "../../../public/img/send_button.png";
 import "./popup.css";
 import SendButtonSVG from "../../img/SendButtonSVG";
 import { useDispatch, useSelector } from "react-redux";
