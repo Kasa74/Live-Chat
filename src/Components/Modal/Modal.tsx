@@ -13,6 +13,7 @@ import { login } from "../../requsts";
 const Modal = ({ modalActive, setModalActive }: ModalProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLogin, setIsLogin] = useState(true);
   const [sendFormError, setSendFormError] = useState("");
   const navigate = useNavigate();
   const sendInfo = async (e: any) => {
@@ -32,24 +33,6 @@ const Modal = ({ modalActive, setModalActive }: ModalProps) => {
     } catch (error) {
       console.error(error);
     }
-
-    // const response = await login(email, password);
-    // console.log(response.status);
-    // if (response.status >= 200 && response.status < 300) {
-    //   const data = await response.json();
-    //   console.log(data);
-    //   localStorage.setItem("token", data.token);
-    //   navigate("/account");
-    // } else if (response.status === 404) {
-    //   setSendFormError("Неверный пароль или почта!");
-    // }
-
-    // if (data.message) {
-    //   alert("неверный пароль или почта!");
-    // } else if (data.token) {
-    //   localStorage.setItem("token", data.token);
-    //   navigate("/account");
-    // }
   };
   return (
     <div
@@ -67,10 +50,21 @@ const Modal = ({ modalActive, setModalActive }: ModalProps) => {
           <CloseButton />
         </div>
         <form className={modalActive ? "modal__form active" : "modal__form"}>
-          <h1 className="modal__title">Войти</h1>
+          <h1 className="modal__title">
+            {isLogin ? "Войти" : "Зарегистрироваться"}
+          </h1>
           <div className="change__form">
-            <div className="change__default__text">Новый пользователь?</div>
-            <div className="change__color__text">Создать учетную запись</div>
+            <div className="change__default__text">
+              {isLogin ? "Новый пользователь?" : "Уже есть аккаунт?"}
+            </div>
+            <div>
+              <div
+                className="change__color__text"
+                onClick={() => setIsLogin(!isLogin)}
+              >
+                {isLogin ? "Создать учетную запись" : "Войти"}
+              </div>
+            </div>
           </div>
           <div className="login__via__social">
             <div className="social">
@@ -113,7 +107,6 @@ const Modal = ({ modalActive, setModalActive }: ModalProps) => {
             <button className="form__send" onClick={(e) => sendInfo(e)}>
               Продолжить
             </button>
-            <div className="forgot__password">Забыли пароль?</div>
           </div>
         </form>
       </div>

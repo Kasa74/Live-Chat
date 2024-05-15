@@ -84,7 +84,6 @@
 .change__default__text {
   font-family: "Open Sans";
   font-weight: 400;
-
   color: #b9b9b9;
 }
 
@@ -102,6 +101,7 @@
   display: block;
   position: absolute;
   left: 0;
+  bottom: 0;
   width: 0;
   height: 1px;
   background-color: #00adb5;
@@ -171,6 +171,7 @@
 }
 
 .form__bottom {
+  width: 351px;
   margin-top: 37px;
   margin-bottom: 10px;
   display: flex;
@@ -192,32 +193,6 @@
   background-color: #4c5158;
 }
 
-.forgot__password {
-  position: relative;
-  cursor: pointer;
-  font-family: "Open Sans";
-  font-weight: 400;
-  font-size: 15px;
-  color: #b9b9b9;
-  transition: all 0.3s ease;
-}
-
-.forgot__password:after {
-  display: block;
-  position: absolute;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background-color: #b9b9b9;
-  content: "";
-  transition: all 0.3s ease-in-out;
-}
-
-.forgot__password:hover:after,
-.forgot__password:focus:after {
-  width: 100%;
-}
-
 @media (max-width: 613px) {
   .modal__logo {
     position: absolute;
@@ -232,7 +207,7 @@
     padding: 15px 25px;
   }
   .modal__title {
-    font-size: 20px;
+    font-size: 16px;
   }
   .change__form {
     flex-direction: column;
@@ -250,6 +225,7 @@
     padding: 6px 6px;
   }
   .form__bottom {
+    width: 185px;
     margin-top: 20px;
   }
   .form__send {

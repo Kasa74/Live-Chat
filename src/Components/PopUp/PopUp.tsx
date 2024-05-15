@@ -23,8 +23,6 @@ const PopUp = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // создание userID, логичнее сделать в mainpage, но с учетом если переносить в либу отдельную - то так правильнее
-
   const generateUserId = () => {
     const hex = "0123456789ABCDEF";
     let output = "";
