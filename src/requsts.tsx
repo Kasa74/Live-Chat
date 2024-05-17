@@ -38,7 +38,7 @@ export const sendMessage = async (
   return data;
 };
 
-export const getOperatorDialogs = async () => {
+export const getOperatorDialogs = async (operator_id: string | null) => {
   const data = await fetch(
     "http://localhost:5001/api/messages/getUserDialogs",
     {
@@ -47,7 +47,7 @@ export const getOperatorDialogs = async () => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ user_hex: "123" }),
+      body: JSON.stringify({ user_hex: operator_id }),
     }
   )
     .then((response) => response.json())
@@ -62,6 +62,28 @@ export const login = async (email: string, password: string) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
+  });
+  return data;
+};
+
+export const registration = async (email: string, password: string) => {
+  const data = await fetch("http://localhost:5001/api/user/registration", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  });
+  return data;
+};
+
+export const confirmOperator = async (operator_id: string | undefined) => {
+  const data = await fetch("http://localhost:5001/api/user/confirm", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ operator_id }),
   });
   return data;
 };

@@ -27,7 +27,7 @@ const PersonalAccount = () => {
   const [searchDialogue, setSearchDialogue] = useState<string>("");
 
   const filteredDialogues = dialogues.filter((dialogue: any) => {
-    return dialogue.from_hex
+    return dialogue.message
       .toLowerCase()
       .includes(searchDialogue.toLowerCase());
   });
@@ -38,9 +38,11 @@ const PersonalAccount = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const operator_id = localStorage.getItem("operator_id");
+
   // получить список диалогов оператора
   useEffect(() => {
-    getOperatorDialogs()
+    getOperatorDialogs(operator_id)
       .then((data) => {
         setDialogues(data);
       })
@@ -49,7 +51,7 @@ const PersonalAccount = () => {
       });
 
     const subscribe = setInterval(() => {
-      getOperatorDialogs()
+      getOperatorDialogs(operator_id)
         .then((data) => {
           setDialogues(data);
         })

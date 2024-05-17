@@ -19,6 +19,9 @@
 }
 
 .modal__content {
+  display: flex;
+  width: 617px;
+  height: 587px;
   background-color: #eeeeee;
   position: relative;
   transition: all 0.3s ease;
@@ -190,6 +193,47 @@
 }
 
 .form__send:hover {
+  background-color: #4c5158;
+}
+
+.success {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 94px;
+  padding: 24px 39px;
+  align-self: center;
+  gap: 28px;
+}
+
+.success__title {
+  font-family: "Open Sans";
+  font-weight: 700;
+  font-size: 20px;
+  color: #393e46;
+}
+
+.success__text {
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+}
+
+.success__button {
+  display: inline-flex;
+  font-family: "Open Sans";
+  font-weight: 600;
+  font-size: 19px;
+  color: #fff;
+  background-color: #393e46;
+  padding: 10px 19px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.success__button:hover {
   background-color: #4c5158;
 }
 
