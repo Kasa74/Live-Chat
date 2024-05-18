@@ -35,3 +35,18 @@
 .confirm__operator span {
   color: #00adb5;
 }
+
+@media (max-width: 555px) {
+  .confirm__title {
+    font-size: 27px;
+    word-wrap: normal;
+    text-align: center;
+  }
+  .confirm__text {
+    font-size: 20px;
+  }
+  .confirm__operator {
+    text-align: center;
+    font-size: 15px;
+  }
+}
