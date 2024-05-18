@@ -93,7 +93,7 @@ class UserController {
       return next(ApiError.badRequest("user ne neiden"));
     }
 
-    if (!user.operator_id) {
+    if (!user.confirmed) {
       return next(ApiError.badRequest("user ne podtverzhden"));
     }
 

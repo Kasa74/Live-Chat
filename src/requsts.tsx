@@ -1,4 +1,7 @@
-export const getDialogue = async (userID: string) => {
+export const getDialogue = async (
+  operator_id: string | null,
+  userID: string
+) => {
   const data = await fetch(
     "http://localhost:5001/api/messages/getUsersMessages",
     {
@@ -7,7 +10,7 @@ export const getDialogue = async (userID: string) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ users_hex: ["123", userID] }),
+      body: JSON.stringify({ users_hex: [operator_id, userID] }),
     }
   )
     .then((response) => response.json())
@@ -16,7 +19,7 @@ export const getDialogue = async (userID: string) => {
 };
 
 export const sendMessage = async (
-  from_hex: string,
+  from_hex: any,
   to_hex: string,
   message: string
 ) => {

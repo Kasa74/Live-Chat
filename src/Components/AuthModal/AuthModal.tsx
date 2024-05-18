@@ -30,8 +30,15 @@ const Modal = ({ modalActive, setModalActive }: ModalProps) => {
           localStorage.setItem("operator_id", data.operator_id);
           navigate("/account");
         } else {
-          if (response.status === 404)
-            setSendFormError("Неверный пароль или почта!");
+          if (response.status === 404) {
+            const data = await response.json();
+            if (data.message === "user ne podtverzhden") {
+              setSendFormError("Оператор не подтвержден!");
+            } else {
+              setSendFormError("Неверный пароль или почта!");
+            }
+          }
+
           if (response.status === 500) throw new Error("500, сервер даун");
           throw new Error(String(response.status));
         }

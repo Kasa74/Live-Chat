@@ -66,7 +66,7 @@ const PersonalAccount = () => {
   }, []);
 
   useEffect(() => {
-    getDialogue(activeDialogue.from_hex)
+    getDialogue(operator_id, activeDialogue.from_hex)
       .then((data) => {
         dispatch({
           type: "RECEIVE_MESSAGES",
@@ -90,9 +90,11 @@ const PersonalAccount = () => {
         type: "ADD_MESSAGE",
         payload: { message: newMsg, from_hex: "123" },
       });
-      sendMessage("123", activeDialogue.from_hex, newMsg).catch((error) => {
-        console.error(error);
-      });
+      sendMessage(operator_id, activeDialogue.from_hex, newMsg).catch(
+        (error) => {
+          console.error(error);
+        }
+      );
       setNewMsg("");
     }
   };
@@ -104,9 +106,11 @@ const PersonalAccount = () => {
           type: "ADD_MESSAGE",
           payload: { message: newMsg, from_hex: "123" },
         });
-        sendMessage("123", activeDialogue.from_hex, newMsg).catch((error) => {
-          console.error(error);
-        });
+        sendMessage(operator_id, activeDialogue.from_hex, newMsg).catch(
+          (error) => {
+            console.error(error);
+          }
+        );
         setNewMsg("");
       }
     }
@@ -229,7 +233,7 @@ const PersonalAccount = () => {
               <div className="operator__msg__block">
                 {messages.map((message: any, index: number) => (
                   <>
-                    {message.from_hex === "123" ? (
+                    {message.from_hex === operator_id ? (
                       <div className="operator__msg">
                         <div className="user__icon">
                           <LogoSVG />
