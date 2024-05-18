@@ -238,6 +238,13 @@
 }
 
 @media (max-width: 613px) {
+  .modal__content {
+    width: 335px;
+    height: auto;
+  }
+  .modal__content.active {
+    width: 335px;
+  }
   .modal__logo {
     position: absolute;
     left: 5px;
@@ -279,5 +286,15 @@
   .forgot__password {
     margin-left: 10px;
     font-size: 12px;
+  }
+  .success {
+    width: 235px;
+    height: auto;
+    margin: 50px;
+    padding: 15px 25px;
+  }
+
+  .success__title {
+    font-size: 15px;
   }
 }
