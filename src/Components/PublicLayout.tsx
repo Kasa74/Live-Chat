@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header/Header";
 import { PopUp } from "live-chat-lib";
-import Modal from "./Modal/Modal";
+import AuthModal from "./AuthModal/AuthModal";
 import { useState } from "react";
 
 export const PublicLayout = () => {
@@ -10,8 +10,8 @@ export const PublicLayout = () => {
     <>
       <Header modalActive={modalActive} setModalActive={setModalActive} />
       <Outlet />
-      <PopUp operator_id="123" />
-      <Modal modalActive={modalActive} setModalActive={setModalActive} />
+      <PopUp operator_id="A2D97770760B483B" />
+      <AuthModal modalActive={modalActive} setModalActive={setModalActive} />
     </>
   );
 };

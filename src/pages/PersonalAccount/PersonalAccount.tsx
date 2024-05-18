@@ -27,7 +27,7 @@ const PersonalAccount = () => {
   const [searchDialogue, setSearchDialogue] = useState<string>("");
 
   const filteredDialogues = dialogues.filter((dialogue: any) => {
-    return dialogue.from_hex
+    return dialogue.message
       .toLowerCase()
       .includes(searchDialogue.toLowerCase());
   });
@@ -38,9 +38,11 @@ const PersonalAccount = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const operator_id = localStorage.getItem("operator_id");
+
   // получить список диалогов оператора
   useEffect(() => {
-    getOperatorDialogs()
+    getOperatorDialogs(operator_id)
       .then((data) => {
         setDialogues(data);
       })
@@ -49,7 +51,7 @@ const PersonalAccount = () => {
       });
 
     const subscribe = setInterval(() => {
-      getOperatorDialogs()
+      getOperatorDialogs(operator_id)
         .then((data) => {
           setDialogues(data);
         })
@@ -64,7 +66,7 @@ const PersonalAccount = () => {
   }, []);
 
   useEffect(() => {
-    getDialogue(activeDialogue.from_hex)
+    getDialogue(operator_id, activeDialogue.from_hex)
       .then((data) => {
         dispatch({
           type: "RECEIVE_MESSAGES",
@@ -88,9 +90,11 @@ const PersonalAccount = () => {
         type: "ADD_MESSAGE",
         payload: { message: newMsg, from_hex: "123" },
       });
-      sendMessage("123", activeDialogue.from_hex, newMsg).catch((error) => {
-        console.error(error);
-      });
+      sendMessage(operator_id, activeDialogue.from_hex, newMsg).catch(
+        (error) => {
+          console.error(error);
+        }
+      );
       setNewMsg("");
     }
   };
@@ -102,9 +106,11 @@ const PersonalAccount = () => {
           type: "ADD_MESSAGE",
           payload: { message: newMsg, from_hex: "123" },
         });
-        sendMessage("123", activeDialogue.from_hex, newMsg).catch((error) => {
-          console.error(error);
-        });
+        sendMessage(operator_id, activeDialogue.from_hex, newMsg).catch(
+          (error) => {
+            console.error(error);
+          }
+        );
         setNewMsg("");
       }
     }
@@ -227,7 +233,7 @@ const PersonalAccount = () => {
               <div className="operator__msg__block">
                 {messages.map((message: any, index: number) => (
                   <>
-                    {message.from_hex === "123" ? (
+                    {message.from_hex === operator_id ? (
                       <div className="operator__msg">
                         <div className="user__icon">
                           <LogoSVG />

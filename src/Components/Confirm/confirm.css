@@ -1,0 +1,37 @@
+.confirm {
+  margin-top: 120px;
+}
+
+.confirm__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+}
+
+.confirm__title {
+  font-family: "Open Sans";
+  font-weight: 600;
+  font-size: 35px;
+  color: #00adb5;
+}
+
+.confirm__text {
+  font-family: "Open Sans";
+  font-weight: 600;
+  font-size: 25px;
+  color: #393e46;
+  text-align: center;
+}
+
+.confirm__operator {
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-size: 20px;
+  color: #393e46;
+}
+
+.confirm__operator span {
+  color: #00adb5;
+}
