@@ -88,7 +88,7 @@ const PersonalAccount = () => {
     if (newMsg !== "") {
       dispatch({
         type: "ADD_MESSAGE",
-        payload: { message: newMsg, from_hex: "123" },
+        payload: { message: newMsg, from_hex: operator_id },
       });
       sendMessage(operator_id, activeDialogue.from_hex, newMsg).catch(
         (error) => {
@@ -104,7 +104,7 @@ const PersonalAccount = () => {
       if (newMsg !== "") {
         dispatch({
           type: "ADD_MESSAGE",
-          payload: { message: newMsg, from_hex: "123" },
+          payload: { message: newMsg, from_hex: operator_id },
         });
         sendMessage(operator_id, activeDialogue.from_hex, newMsg).catch(
           (error) => {

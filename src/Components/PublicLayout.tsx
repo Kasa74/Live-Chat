@@ -10,7 +10,7 @@ export const PublicLayout = () => {
     <>
       <Header modalActive={modalActive} setModalActive={setModalActive} />
       <Outlet />
-      <PopUp operator_id="A2D97770760B483B" />
+      <PopUp operator_id="8580FD56CBE07935" />
       <AuthModal modalActive={modalActive} setModalActive={setModalActive} />
     </>
   );
